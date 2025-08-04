@@ -372,11 +372,6 @@ class MixVisionTransformer(nn.Module):
         )
         self.norm4 = norm_layer(embed_dims[3])
         
-        ##mask部分
-        # self.mask = SuperMask(128)
-        # self.encoder_d = build_cls(3)
-        # self.MI = Mine()
-        ##结束
 
         self.apply(self._init_weights)
 
@@ -418,12 +413,6 @@ class MixVisionTransformer(nn.Module):
             x = blk.forward(x, H, W)
         x = self.norm2(x)
         x = x.reshape(B, H, W, -1).permute(0, 3, 1, 2).contiguous()
-        
-        ##mask部分
-        # re, ir, mask = self.mask(x, target)
-        # x=re
-        # domain_code = self.encoder_d(ir)
-        # mi_loss = self.MI(x, ir)
         
         outs.append(x)
 

@@ -135,12 +135,7 @@ def main():
     parser.add_argument('--datasetTest', type=list, default=[2], help='test folder id contain images ROIs to test')
     parser.add_argument('--dataset', type=str, default='test', help='test folder id contain images ROIs to test')
     parser.add_argument('-g', '--gpu', type=int, default=3)
-
     parser.add_argument('--data-dir', default='./Dataset/Fundus/', help='data root path')
-    parser.add_argument('--out-stride', type=int, default=16, help='out-stride of deeplabv3+',)
-    parser.add_argument('--sync-bn', type=bool, default=False, help='sync-bn in deeplabv3+')
-    parser.add_argument('--freeze-bn', type=bool, default=False, help='freeze batch normalization of deeplabv3+')
-    parser.add_argument('--movingbn', type=bool, default=False, help='moving batch normalization of deeplabv3+ in the test phase',)
     parser.add_argument('--test-prediction-save-path', type=str, default='./results/unet/', help='Path root for test image and mask')
     args = parser.parse_args()
 
@@ -208,7 +203,7 @@ def main():
             data, target = data.cuda(), target.cuda()
         data, target = Variable(data).cuda(), Variable(target)
 
-        x_, prediction, dc,  mask, re, ir, re_p = model(data, target)
+        x_, prediction, dc,  mask, re, ir, re_p = model(data)
      
         prediction = torch.nn.functional.interpolate(prediction, size=(target.size()[2], target.size()[3]), mode="bilinear")
         data = torch.nn.functional.interpolate(data, size=(target.size()[2], target.size()[3]), mode="bilinear")

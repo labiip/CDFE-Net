@@ -41,7 +41,7 @@ def main():
     parser.add_argument('--batch-size', type=int, default=1, help='batch size for training the model')
     parser.add_argument('--group-num', type=int, default=1, help='group number for group normalization')
     parser.add_argument('--max-epoch', type=int, default=400, help='max epoch')
-    parser.add_argument('--stop-epoch', type=int, default=400, help='stop epoch')
+    parser.add_argument('--stop-epoch', type=int, default=200, help='stop epoch')
     parser.add_argument('--interval-validate', type=int, default=10, help='interval epoch number to valide the model')
     parser.add_argument('--lr', type=float, default=1e-3, help='learning rate',)
     parser.add_argument('--lr-decrease-rate', type=float, default=0.2, help='ratio multiplied to initial lr')

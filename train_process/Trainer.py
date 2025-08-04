@@ -206,7 +206,7 @@ class Trainer(object):
             self.model = self.model.cuda()
             self.projector = self.projector.cuda()
             
-            x_, pred, domain_predict, mask, re, ir, re_p = self.model(image, target_map) ######ours
+            x_, pred, domain_predict, mask, re, ir, re_p = self.model(image) ######ours
             
             loss_seg = 2*bceloss(torch.sigmoid(pred), target_map)
             loss_x = bceloss(torch.sigmoid(x_), target_map)
