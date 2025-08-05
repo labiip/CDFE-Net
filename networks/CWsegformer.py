@@ -161,7 +161,7 @@ class SegFormerHead(nn.Module):
         )
 
     
-    def forward(self, inputs, target):
+    def forward(self, inputs):
         c1, c2, c3, c4 = inputs
         n, _, h, w = c4.shape
         
@@ -226,12 +226,12 @@ class SegFormer(nn.Module):
         self.decode_head = SegFormerHead(num_classes, num_domain, self.in_channels, self.embedding_dim)
 
 
-    def forward(self, inputs, target):
+    def forward(self, inputs):
         H, W = inputs.size(2), inputs.size(3)
         
         x = self.backbone.forward(inputs)
         
-        x_, xr, domain_code, mask, re, ir, re_p = self.decode_head.forward(x, target)
+        x_, xr, domain_code, mask, re, ir, re_p = self.decode_head.forward(x)
       
         x_ = F.interpolate(x_, size=(H, W), mode='bilinear', align_corners=True)
         xr = F.interpolate(xr, size=(H, W), mode='bilinear', align_corners=True)
